@@ -1,4 +1,4 @@
-<div in:fade="{{delay:500}}" out:fade>
+<div in:fade="{{delay:600}}" out:fade>
 
    <div class="grid-layout">
 

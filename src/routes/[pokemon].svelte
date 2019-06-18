@@ -3,7 +3,7 @@
 </svelt:head>
 
 
-<div in:fade="{{delay:4000}}" out:fade>
+<div in:fade="{{delay:600}}" out:fade>
 
    <div>
       <button onClick="history.go(-1); return false;">Back</button>

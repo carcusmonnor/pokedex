@@ -38,6 +38,12 @@
       border-radius: 8px;
       margin: 0.5rem;
       padding: 1rem;
+      transition: all 0.3s ease 0s;
+   }
+
+   .grid-card:hover {
+      box-shadow: 0px 8px 15px rgba(74,144,226,0.15);
+      transform: translateY(-7px);
    }
 
 </style>
