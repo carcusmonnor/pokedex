@@ -12,13 +12,19 @@
 
 	<div class="pokemon-container">
 
-		<div class="pokemon-container--child">
+		<div class="pokemon-container-image">
+
 			<img src="/art/{json.id}.png">
+
 		</div>
 
-		<div class="pokemon-container--child">
+		<div class="pokemon-container-stats">
 
 			<h1 class="title-case">{json.name}</h1>
+
+         {#each json.types as object}
+            <div class="title-case pokemon-type">{object.type.name}</div>
+         {/each}
 
 			<h2>Statistics</h2>
 
@@ -33,6 +39,16 @@
 		</div>
 
 	</div>
+
+   <div>
+
+      <h1>Moves</h1>
+
+      {#each json.moves as move}
+         <p class="title-case">{move.move.name}</p>
+      {/each}
+
+   </div>
 
 </div>
 
@@ -65,16 +81,31 @@
 		display: flex;
 	}
 
-	.pokemon-container--child {
+	.pokemon-container-image {
 		flex: 0 1 50%;
+      margin: auto;
 	}
 
-	.pokemon-container--child:last-child {
+	.pokemon-container-stats {
+		flex: 0 1 50%;
 		background: #FFFFFF;
 		box-shadow: 0 10px 30px 0 rgba(74,144,226,0.15);
 		border-radius: 8px;
 		padding: 1rem;
 	}
+
+   .pokemon-type {
+      padding: 0.4rem;
+      background-color: #2EE59D;
+      width: 6rem;
+      height: 1.5rem;
+      border-radius: 3rem;
+      font-size: 0.8rem;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+   }
 
 	.title-case {
 		text-transform: capitalize;

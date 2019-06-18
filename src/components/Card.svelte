@@ -1,6 +1,6 @@
 <a class="grid-card" href="{data.name}">
+
    <h1 class="title">
-      <span>{id}:</span>
       {data.name}
    </h1>
 
@@ -11,6 +11,11 @@
          <img src="/art/{id}.png">
       </a>
    <!-- {/if} -->
+
+   <div>
+      <div class="id-dot">{id}</div>
+   </div>
+
 </a>
 
 <script>
@@ -22,12 +27,23 @@
 
 <style>
 
-   span {
+   .id-dot {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 1rem;
+      background: #242430;
+      color: #2EE59D;
       font-weight: bold;
+      line-height: 1;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto -4rem auto;
    }
 
    .title {
       font-size: 1.5rem;
+      text-align: center;
       text-transform: capitalize;
       white-space: nowrap;
    }
@@ -36,8 +52,8 @@
       background: #FFFFFF;
       box-shadow: 0 10px 30px 0 rgba(74,144,226,0.15);
       border-radius: 8px;
-      margin: 0.5rem;
-      padding: 1rem;
+      margin: 0.9rem 0.6rem;
+      padding: 1rem 1rem 3rem 1rem;
       transition: all 0.3s ease 0s;
    }
 

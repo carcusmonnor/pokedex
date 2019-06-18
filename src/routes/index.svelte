@@ -1,4 +1,4 @@
-<div in:fade="{{delay:600}}" out:fade>
+<div in:fade="{{delay:500}}" out:fade>
 
    <div class="grid-layout">
 
@@ -7,11 +7,9 @@
    	{/each}
 
       {#if more}
-
          {#each more as result}
             <Card data="{result}" id="{getId(result.url)}"/>
          {/each}
-
       {/if}
 
    </div>
@@ -55,6 +53,7 @@
    .grid-layout {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
+      justify-content: centre;
       max-width: 1200px;
    }
 
