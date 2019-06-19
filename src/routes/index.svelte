@@ -25,10 +25,6 @@
 
 <style>
 
-   .button {
-      padding: 1rem;
-      text-align: center;
-   }
 
    button {
       background-color: white;
@@ -48,6 +44,11 @@
       box-shadow: 0px 8px 15px rgba(46, 229, 157, 0.4);
       color: #fff;
       transform: translateY(-7px);
+   }
+
+   .button {
+      padding: 1rem;
+      text-align: center;
    }
 
    .grid-layout {

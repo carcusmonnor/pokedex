@@ -31,7 +31,8 @@
 			<div>
 
 				{#each json.stats as item}
-					<p class="title-case"><span>{item.stat.name}:</span> {item.base_stat}</p>
+					<p class="title-case">{item.stat.name}:</p>
+               <progress min="0" max="255" value="{item.base_stat}"></progress>
 				{/each}
 
 			</div>
@@ -136,6 +137,25 @@
       color: black;
       /* transform: translateX(-7px); */
    }
+
+   progress {
+      border-radius: 2px;
+      width: 100%;
+      height: 0.5rem;
+   }
+
+   progress::-webkit-progress-bar {
+      border-radius: 1rem
+   }
+
+   progress::-webkit-progress-value {
+      border-radius: 1rem;
+      background-color: #2EE59D;
+   }
+
+   progress::-moz-progress-bar {
+   }
+
 </style>
 
 <script context="module">
