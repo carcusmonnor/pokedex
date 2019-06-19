@@ -79,7 +79,6 @@
    import Card from '../components/Card.svelte'
 
 	export let json
-	console.log(json)
    let more = []
 
    export let count;
@@ -101,7 +100,6 @@
 
       more = [...more, ...json.results]
       offset = offset + count;
-      console.log(json)
 
    }
 
