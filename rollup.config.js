@@ -6,12 +6,21 @@ import babel from 'rollup-plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import config from 'sapper/config/rollup.js';
 import pkg from './package.json';
+import sveltePreprocess from 'svelte-preprocess';
+import autoprefixer from 'autoprefixer';
+import alias from 'rollup-plugin-alias';
+import path from 'path';
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
 const legacy = !!process.env.SAPPER_LEGACY_BUILD;
 
-const onwarn = (warning, onwarn) => (warning.code === 'CIRCULAR_DEPENDENCY' && warning.message.includes('/@sapper/')) || onwarn(warning);
+const preprocess = sveltePreprocess({
+    transformers: {
+        scss: { sourceMap: false },
+        postcss: { plugins: [ autoprefixer ] }
+    }
+});
 
 export default {
 	client: {
@@ -25,22 +34,21 @@ export default {
 			svelte({
 				dev,
 				hydratable: true,
-				emitCss: true
+				emitCss: true,
+                preprocess
 			}),
-			resolve({
-				browser: true
-			}),
+			resolve(),
 			commonjs(),
+            alias({
+                resolve: ['.js', '.mjs', '.html', '.svelte'],
+                '~': path.join(__dirname, './src')
+            }),
 
 			legacy && babel({
 				extensions: ['.js', '.mjs', '.html', '.svelte'],
 				runtimeHelpers: true,
 				exclude: ['node_modules/@babel/**'],
-				presets: [
-					['@babel/preset-env', {
-						targets: '> 0.25%, not dead'
-					}]
-				],
+				presets: [['@babel/preset-env']],
 				plugins: [
 					'@babel/plugin-syntax-dynamic-import',
 					['@babel/plugin-transform-runtime', {
@@ -50,11 +58,10 @@ export default {
 			}),
 
 			!dev && terser({
-				module: true
+				module: true,
+                numWorkers: 1
 			})
 		],
-
-		onwarn,
 	},
 
 	server: {
@@ -67,16 +74,19 @@ export default {
 			}),
 			svelte({
 				generate: 'ssr',
-				dev
+				dev,
+                preprocess
 			}),
 			resolve(),
-			commonjs()
+			commonjs(),
+            alias({
+                resolve: ['.js', '.mjs', '.html', '.svelte'],
+                '~': path.join(__dirname, './src')
+            }),
 		],
 		external: Object.keys(pkg.dependencies).concat(
 			require('module').builtinModules || Object.keys(process.binding('natives'))
 		),
-
-		onwarn,
 	},
 
 	serviceworker: {
@@ -89,9 +99,11 @@ export default {
 				'process.env.NODE_ENV': JSON.stringify(mode)
 			}),
 			commonjs(),
-			!dev && terser()
-		],
-
-		onwarn,
+            alias({
+                resolve: ['.js', '.mjs', '.html', '.svelte'],
+                '~': path.join(__dirname, './src')
+            }),
+			!dev && terser({numWorkers: 1})
+		]
 	}
 };

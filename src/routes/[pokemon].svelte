@@ -6,7 +6,7 @@
 <div in:fade="{{delay:600}}" out:fade>
 
    <div>
-      <button onClick="history.go(-1); return false;">Back</button>
+      <button class="" onClick="history.go(-1); return false;">Back</button>
    </div>
 
 
@@ -14,7 +14,7 @@
 
 		<div class="pokemon-container-image">
 
-			<img src="/art/{json.id}.png">
+			<img src="/art/{json.id}.png" alt="{json.name}">
 
 		</div>
 
@@ -71,13 +71,6 @@
 		font-family: arial;
 	}
 
-	span {
-		font-family: arial;
-		font-weight: 700;
-		letter-spacing: 1px;
-		text-transform: uppercase;
-	}
-
 	.pokemon-container {
 		display: flex;
 	}
@@ -112,12 +105,9 @@
 		text-transform: capitalize;
 	}
 
-   .button {
+   button {
       padding: 1rem;
       text-align: center;
-   }
-
-   button {
       background-color: #2EE59D;
       color: #fff;
       border: none;
@@ -170,5 +160,4 @@
 <script>
 	import {fade} from 'svelte-transitions';
 	export let json
-	console.log(json)
 </script>
