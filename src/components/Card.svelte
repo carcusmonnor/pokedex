@@ -8,7 +8,7 @@
 
    <!-- {#if imageCheck(`/art/${getId(result.url)}.png`)} -->
       <a href="{data.name}" sapper-noscroll>
-         <img src="/art/{id}.png">
+         <img src="/art/{id}.png" alt="{data.name}">
       </a>
    <!-- {/if} -->
 

@@ -51,6 +51,8 @@
 
    </div>
 
+<canvas id="myChart"></canvas>
+
 </div>
 
 <style>
@@ -149,8 +151,11 @@
 </style>
 
 <script context="module">
+
 	export async function preload(page) {
+
 		const {params} = page;
+
 		const json = await this.fetch('https://pokeapi.co/api/v2/pokemon/' + params.pokemon ).then(x => x.json());
 
 		return {json}
@@ -158,6 +163,40 @@
 </script>
 
 <script>
+
 	import {fade} from 'svelte-transitions';
-	export let json
+   import {onMount} from 'svelte';
+   import Chart from 'chart.js';
+
+   export let json;
+
+   console.log(json);
+
+   function toProperCase(str) {
+       return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+   };
+
+   const labels = json.stats.map(item => toProperCase(item.stat.name.replace("-"," ")))
+
+   const data = json.stats.map(item => item.base_stat)
+
+   console.log(labels)
+
+   onMount(() => {
+
+      var ctx = document.getElementById('myChart').getContext('2d');
+
+      var myRadarChart = new Chart(ctx, {
+
+         type: 'radar',
+         data: {
+         labels,
+            datasets: [{
+               data,
+            }]
+         }
+
+      });
+   });
+
 </script>

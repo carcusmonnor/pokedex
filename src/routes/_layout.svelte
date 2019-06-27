@@ -1,12 +1,36 @@
+<!-- <header>
+
+   <form on:submit={search}>
+
+      <input bind:value="{query}">Search</input>
+
+   </form>
+
+</header> -->
+
 <main>
-	<slot></slot>
+
+   <slot></slot>
+
 </main>
 
 <script>
+
 	export let segment;
+
+   // let query;
+   //
+   // function search() {
+   //
+   //       const json =  fetch(`https://pokeapi.co/api/v2/pokemon?limit=1000`).then(x => x.json());
+   //
+   //       if ('key' in myObj)
+   // }
+
 </script>
 
 <style lang="scss">
+
    main {
       position: relative;
       max-width: 56em;
@@ -15,4 +39,5 @@
       margin: 0 auto;
       box-sizing: border-box;
    }
+
 </style>
