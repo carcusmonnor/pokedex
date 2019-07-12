@@ -26,16 +26,7 @@
             <div class="title-case pokemon-type">{object.type.name}</div>
          {/each}
 
-			<h2>Statistics</h2>
-
-			<div>
-
-				{#each json.stats as item}
-					<p class="title-case">{item.stat.name}:</p>
-               <progress min="0" max="255" value="{item.base_stat}"></progress>
-				{/each}
-
-			</div>
+         <canvas id="myChart"></canvas>
 
 		</div>
 
@@ -45,17 +36,31 @@
 
       <h1>Moves</h1>
 
-      {#each json.moves as move}
-         <p class="title-case">{move.move.name}</p>
-      {/each}
+      <select class="title-case" on:change="{getMove}">
+         <option disabled selected>Select Move</option>
+         {#each json.moves as move}
+            <option value="{move.move.url}">{move.move.name.replace("-"," ")}</option>
+         {/each}
+      </select>
+
+      {#if move}
+         {move.power || 'N/A'}
+         {move.pp}
+         {move.name}
+      {/if}
 
    </div>
 
-<canvas id="myChart"></canvas>
 
 </div>
 
 <style>
+
+   canvas {
+   height: 100%;
+   width: 500px;
+   }
+
 	img {
 		width: 300px;
 	}
@@ -169,6 +174,7 @@
    import Chart from 'chart.js';
 
    export let json;
+   export let move;
 
    console.log(json);
 
@@ -182,7 +188,7 @@
 
    console.log(labels)
 
-   onMount(() => {
+   onMount(async() => {
 
       var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -190,13 +196,28 @@
 
          type: 'radar',
          data: {
-         labels,
+            labels,
             datasets: [{
                data,
-            }]
+               pointBackgroundColor: '#2EE59D',
+               backgroundColor: 'rgba(46,229,157,0.4)',
+               borderColor: '#2EE59D',
+            }],
+         },
+         
+         options: {
+            legend: {
+               display: false
+            },
          }
-
       });
    });
+
+   async function getMove(e) {
+      console.log(e.target.value)
+      move = await fetch(e.target.value).then(x => x.json())
+      console.log(move)
+   }
+
 
 </script>
